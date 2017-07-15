@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-7-11 12:41:52 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.qf.dao.pojo.TUser" table="T_USER" schema="SCOTT" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="username" type="java.lang.String">
+            <column name="USERNAME" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="PASSWORD" length="20" not-null="true" />
+        </property>
+        <property name="realname" type="java.lang.String">
+            <column name="REALNAME" length="20" not-null="true" />
+        </property>
+        <property name="sex" type="int">
+            <column name="SEX" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="uidnumber" type="java.lang.String">
+            <column name="UIDNUMBER" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="tel" type="java.lang.String">
+            <column name="TEL" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="utype" type="int">
+            <column name="UTYPE" precision="22" scale="0"/>
+        </property>
+        <property name="urole" type="java.lang.String">
+            <column name="UROLE" length="20" not-null="true"/>
+        </property>
+        <property name="con1" type="java.lang.String">
+            <column name="CON1" length="20" />
+        </property>
+        <property name="con2" type="java.lang.String">
+            <column name="CON2" length="20" />
+        </property>
+        <property name="con3" type="java.lang.String">
+            <column name="CON3" length="20" />
+        </property>
+        <property name="con4" type="java.lang.String">
+            <column name="CON4" length="20" />
+        </property>
+        <property name="con5" type="java.lang.String">
+            <column name="CON5" length="20" />
+        </property>
+        <set name="TOrderses" table="T_ORDERS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USERID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.qf.dao.pojo.TOrders" />
+        </set>
+    </class>
+</hibernate-mapping>

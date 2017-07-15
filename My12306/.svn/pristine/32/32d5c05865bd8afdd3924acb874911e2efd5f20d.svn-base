@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-7-11 12:41:52 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.qf.dao.pojo.TStation" table="T_STATION" schema="SCOTT" optimistic-lock="version">
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="pinyin" type="java.lang.String">
+            <column name="PINYIN" length="20" not-null="true" />
+        </property>
+        <property name="region" type="java.lang.String">
+            <column name="REGION" length="20" not-null="true" />
+        </property>
+        <property name="range" type="int">
+            <column name="RANGE" precision="22" scale="0" />
+        </property>
+        <property name="company" type="java.lang.String">
+            <column name="COMPANY" length="20" />
+        </property>
+        <property name="address" type="java.lang.String">
+            <column name="ADDRESS" length="50" />
+        </property>
+        <property name="con1" type="java.lang.String">
+            <column name="CON1" length="20" />
+        </property>
+        <property name="con2" type="java.lang.String">
+            <column name="CON2" length="20" />
+        </property>
+        <property name="con3" type="java.lang.String">
+            <column name="CON3" length="20" />
+        </property>
+        <property name="con4" type="java.lang.String">
+            <column name="CON4" length="20" />
+        </property>
+        <property name="con5" type="java.lang.String">
+            <column name="CON5" length="20" />
+        </property>
+        <set name="TTrainsForEndstation" table="T_TRAIN" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ENDSTATION" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.qf.dao.pojo.TTrain" />
+        </set>
+        <set name="TTrainsForStartstation" table="T_TRAIN" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="STARTSTATION" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.qf.dao.pojo.TTrain" />
+        </set>
+    </class>
+</hibernate-mapping>

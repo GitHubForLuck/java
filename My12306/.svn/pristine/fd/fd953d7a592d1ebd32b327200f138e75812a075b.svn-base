@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="orders" extends="struts-default" namespace="/">
+
+		<global-results>
+			<result name="error" type="redirect">/error.jsp</result>
+		</global-results>
+
+		<!-- 通配符的使用 
+			station_find_findAll  station_find_findById station_find_findByPropetry
+		-->
+		<action name="orders_find_*" class="tOrdersAction"
+			method="{1}">
+			<result name="success" type="dispatcher">/userjsp/admin/orders/orders_findall.jsp</result>
+			<result name="changesuccess" type="redirectAction">orders_find_findAll.action</result>
+			<result name="updatesuccess" type="dispatcher">/userjsp/admin/orders/orders_update.jsp</result>
+			
+		</action>
+		
+	</package>
+</struts>

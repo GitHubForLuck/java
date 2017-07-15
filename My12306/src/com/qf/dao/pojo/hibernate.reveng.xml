@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-schema="SCOTT" match-name="T_CARRIAGE"/>
+  <table-filter match-schema="SCOTT" match-name="T_JOURNEY"/>
+  <table-filter match-schema="SCOTT" match-name="T_JOURNEYRATE"/>
+  <table-filter match-schema="SCOTT" match-name="T_ORDERS"/>
+  <table-filter match-schema="SCOTT" match-name="T_PRICE"/>
+  <table-filter match-schema="SCOTT" match-name="T_ROUTE"/>
+  <table-filter match-schema="SCOTT" match-name="T_STATION"/>
+  <table-filter match-schema="SCOTT" match-name="T_TICKET"/>
+  <table-filter match-schema="SCOTT" match-name="T_TRAIN"/>
+  <table-filter match-schema="SCOTT" match-name="T_USER"/>
+</hibernate-reverse-engineering>

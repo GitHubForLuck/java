@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-7-11 12:41:52 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.qf.dao.pojo.TTicket" table="T_TICKET" schema="SCOTT" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="TTrain" class="com.qf.dao.pojo.TTrain" fetch="select">
+            <column name="TID" length="20" not-null="true" />
+        </many-to-one>
+        <property name="tdate" type="date">
+            <column name="TDATE" length="7" not-null="true" />
+        </property>
+        <property name="gnumber" type="int">
+            <column name="GNUMBER" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="seatnumber" type="int">
+            <column name="SEATNUMBER" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="startstation" type="java.lang.String">
+            <column name="STARTSTATION" length="20" not-null="true" />
+        </property>
+        <property name="endstation" type="java.lang.String">
+            <column name="ENDSTATION" length="20" not-null="true" />
+        </property>
+        <property name="price" type="int">
+            <column name="PRICE" precision="8" not-null="true" />
+        </property>
+        <property name="uname" type="java.lang.String">
+            <column name="UNAME" length="20" not-null="true" />
+        </property>
+        <property name="utype" type="int">
+            <column name="UTYPE" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="uidnumber" type="java.lang.String">
+            <column name="UIDNUMBER" length="20" not-null="true" />
+        </property>
+        <property name="saletype" type="int">
+            <column name="SALETYPE" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="saletime" type="date">
+            <column name="SALETIME" length="7" />
+        </property>
+        <property name="status" type="int">
+            <column name="STATUS" precision="22" scale="0" />
+        </property>
+        <property name="revisetime" type="int">
+            <column name="REVISETIME" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="con1" type="java.lang.String">
+            <column name="CON1" length="20" />
+        </property>
+        <property name="con2" type="java.lang.String">
+            <column name="CON2" length="20" />
+        </property>
+        <property name="con3" type="java.lang.String">
+            <column name="CON3" length="20" />
+        </property>
+        <property name="con4" type="java.lang.String">
+            <column name="CON4" length="20" />
+        </property>
+        <property name="con5" type="java.lang.String">
+            <column name="CON5" length="20" />
+        </property>
+        <set name="TOrderses" table="T_ORDERS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TKID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.qf.dao.pojo.TOrders" />
+        </set>
+    </class>
+</hibernate-mapping>

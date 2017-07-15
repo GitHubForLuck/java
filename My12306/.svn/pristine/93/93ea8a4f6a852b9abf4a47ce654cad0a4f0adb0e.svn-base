@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="route_crud" namespace="/" extends="struts-default">
+		<global-results>
+			<result name="error" type="redirect">/error.jsp</result>
+		</global-results>
+		<!-- 通配符的使用 
+			route_find_findAll  route_find_findById  route_find_findByProperties
+		-->
+		<action name="route_find_*" class="routeAction"
+			method="{1}">
+			<result name="success" type="dispatcher">/userjsp/admin/train/route_findall.jsp</result>
+			<result name="updatesuccess" type="dispatcher">/userjsp/admin/train/route_update.jsp</result>
+		</action>
+		
+		<!-- 通配符的使用 
+			route_save  route_update  route_delete
+		-->
+		<action name="route_*" class="routeAction"
+			method="{1}">
+			<result name="success" type="redirectAction">route_find_findAll.action</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-7-11 12:41:52 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.qf.dao.pojo.TCarriage" table="T_CARRIAGE" schema="SCOTT" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="TTrain" class="com.qf.dao.pojo.TTrain" fetch="select">
+            <column name="TID" length="20" not-null="true" />
+        </many-to-one>
+        <property name="cnumber" type="int">
+            <column name="CNUMBER" precision="22" scale="0" not-null="true" unique="true" />
+        </property>
+        <property name="seatnumber" type="short">
+            <column name="SEATNUMBER" precision="4" scale="0" not-null="true" />
+        </property>
+        <property name="ctype" type="int">
+            <column name="CTYPE" precision="22" scale="0" />
+        </property>
+        <property name="con1" type="java.lang.String">
+            <column name="CON1" length="20" />
+        </property>
+        <property name="con2" type="java.lang.String">
+            <column name="CON2" length="20" />
+        </property>
+        <property name="con3" type="java.lang.String">
+            <column name="CON3" length="20" />
+        </property>
+        <property name="con4" type="java.lang.String">
+            <column name="CON4" length="20" />
+        </property>
+        <property name="con5" type="java.lang.String">
+            <column name="CON5" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

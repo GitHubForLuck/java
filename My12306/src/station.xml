@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="station" extends="struts-default" namespace="/">
+
+		<global-results>
+			<result name="error" type="redirect">/error.jsp</result>
+		</global-results>
+
+		<!-- 通配符的使用 
+			station_find_findAll  station_find_findById station_find_findByPropetry
+		-->
+		<action name="station_find_*" class="tstationAction"
+			method="{1}">
+			<result name="success" type="dispatcher">/userjsp/admin/train/station_findall.jsp</result>
+			<result name="updatesuccess" type="dispatcher">/userjsp/admin/train/station_update.jsp</result>
+			<result name="changesuccess" type="redirectAction">station_find_findAll.action</result>
+		</action>
+		
+		<!-- 通配符的使用 
+			station_stop  station_update  station_save
+		-->
+		<action name="station_*" class="tstationAction"
+			method="{1}">
+			<result name="success" type="redirectAction">station_find_findAll.action</result>
+		</action>
+		<!-- <action name="station_save" class="tstationAction" method="save">
+			<result name="success" type="redirect">/userjsp/admin/train/station_save.jsp</result>
+		</action> -->
+
+	</package>
+</struts>

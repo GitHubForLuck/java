@@ -1,0 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="${pageContext.request.contextPath}/userjsp/admin/css/train.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div>
+	<h3>路线添加</h3>
+	<hr/>
+	<form action="${pageContext.request.contextPath}/route_save.action" method="post">
+		<table>
+			<!-- <tr><td>线路编号：</td><td><input type="text" name="id"/></td></tr> -->
+			<tr><td>车次编号：</td>
+			<td>
+				<select name="tid">
+						<option value="T72">T72</option>
+				</select>
+			</td>
+			</tr>
+			<tr><td>站　　序：</td><td><input type="text" name="siteorder"/></td></tr>
+			<tr><td>车站名：</td><td><input type="text" name="site"/></td></tr>
+			<tr><td>里程：</td><td><input type="text" name="mile"/></td></tr>
+			<tr><td>发车时间：</td><td><input type="date" name="starttime"/></td></tr>
+			<tr><td>到站时间：</td><td><input type="date" name="endtime"/></td></tr>
+			<tr><td>停留时间：</td><td><input type="text" name="staytime"/></td></tr>
+			<tr><td>线路状态：</td><td><input type="text" name="con1"/></td></tr>
+			<tr><td><input type="submit" value="添加"/>&nbsp;&nbsp;&nbsp;<input type="reset" value="重置"/></td></tr>
+		</table>
+	</form>
+	</div>
+</body>
+</html>

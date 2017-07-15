@@ -1,0 +1,83 @@
+package com.qf.action;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.RequestAware;
+import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+import com.qf.dao.pojo.TOrders;
+import com.qf.service.iservice.ITOrdersService;
+
+@Controller("tOrdersAction")
+public class TOrdersAction extends ActionSupport implements ModelDriven<TOrders>,RequestAware,SessionAware{
+
+	private static final long serialVersionUID = 1L;
+
+	@Autowired
+	@Qualifier("tOrdersService")
+	private ITOrdersService tOrdersService;
+	
+	private Map<String, Object> sessionMap;
+	@Override
+	public void setSession(Map<String, Object> sessionMap) {
+		// TODO Auto-generated method stub
+		this.sessionMap = sessionMap;
+	}
+	
+	private Map<String, Object> requestMap;
+	@Override
+	public void setRequest(Map<String, Object> requestMap) {
+		// TODO Auto-generated method stub
+		this.requestMap = requestMap;
+	}
+
+	private TOrders tOrders;
+	@Override
+	public TOrders getModel() {
+		// TODO Auto-generated method stub
+		return tOrders;
+	}
+	
+	private String id;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String findAll(){
+		String msg = "error";
+		List<TOrders> oList = tOrdersService.findAll();
+		if (oList != null && oList.size() > 0) {
+			requestMap.put("oList", oList);
+			msg = "success";
+		}
+		return msg;
+	}
+	
+	public String findById(){
+		String msg = "error";
+		TOrders tOrders = tOrdersService.findById(Integer.parseInt(id));
+		System.out.println(id);
+		List<TOrders> oList = new ArrayList<>();
+		if (tOrders != null) {
+			oList.add(tOrders);
+			requestMap.put("oList", oList);
+			msg = "success";
+		}
+		return msg;
+	}
+	
+	public String changeStatusById(){
+		return tOrdersService.changeStatusById(Integer.parseInt(id));
+	}
+
+}

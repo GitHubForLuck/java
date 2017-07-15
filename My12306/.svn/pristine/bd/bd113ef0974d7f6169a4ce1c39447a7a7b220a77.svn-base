@@ -1,0 +1,106 @@
+package com.qf.action;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.RequestAware;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+
+import com.opensymphony.xwork2.ModelDriven;
+import com.qf.dao.pojo.TRoute;
+import com.qf.dao.pojo.TTrain;
+import com.qf.service.iservice.IRouteService;
+import com.qf.service.iservice.ITTrainService;
+
+/**
+ * 
+ * @author Administrator
+ *
+ */
+@Controller("routeAction")
+public class RouteAction implements RequestAware,ModelDriven<TRoute>{
+
+
+	@Autowired
+	@Qualifier("routeService")
+	private IRouteService routeService;
+	
+	@Autowired
+	@Qualifier("ttrainService")
+	private ITTrainService ttrainService;
+	
+	private TRoute tRoute = new TRoute();
+	@Override
+	public TRoute getModel() {
+		return tRoute;
+	}
+
+	private Map<String, Object> requestMap;
+	@Override
+	public void setRequest(Map<String, Object> requestMap) {
+		this.requestMap = requestMap;
+	}
+	
+	private String tid;
+
+	public String getTid() {
+		return tid;
+	}
+	
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
+
+	public String save() {
+		TTrain train = ttrainService.findById(tid);
+		tRoute.setTTrain(train);
+		return routeService.save(tRoute);
+	}
+
+	public String update() {
+		return routeService.update(tRoute);
+	}
+
+	public String delete() {
+		return routeService.delete(tRoute);
+	}
+
+	public String findAll() {
+		String msg = "error";
+		List<TRoute> tRoutes = routeService.findAll();;
+		if (tRoutes != null) {
+			requestMap.put("routeList", tRoutes);
+			msg = "success";
+		}
+		return msg;
+	}
+
+	public List<TRoute> findByProperty(String proName, Object proVal) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String findById() {
+		String msg = "error";
+		TRoute tRoute2 = routeService.findById(tRoute.getId());
+		if (tRoute != null) {
+			requestMap.put("route", tRoute2);
+			msg = "success";
+		}
+		return msg;
+	}
+
+	public String findByProperties() {
+		String msg = "error";
+		List<TRoute> tRoutes = routeService.findByProperties(tRoute);
+		if (tRoutes != null) {
+			requestMap.put("routeList", tRoutes);
+			msg = "success";
+		}
+		return msg;
+	}
+
+
+}

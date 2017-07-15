@@ -1,0 +1,94 @@
+package com.qf.dao.impl;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
+
+import com.qf.dao.idao.IRouteDao;
+import com.qf.dao.pojo.TRoute;
+
+@Repository("routeDao")
+public class DaoRouteImpl implements IRouteDao {
+	
+	@Autowired
+	@Qualifier("sessionFactory")
+	private SessionFactory sessionFactory;
+
+	@Override
+	public void save(TRoute t) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(t);
+	}
+
+	@Override
+	public void update(TRoute t) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(t);
+	}
+
+	@Override
+	public void delete(TRoute t) {
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(t);
+	}
+
+	@Override
+	public List<TRoute> findAll() {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from TRoute");
+		List<TRoute> tRoutes = query.list();
+		return tRoutes;
+	}
+
+	@Override
+	public TRoute findById(String k) {
+		Session session = sessionFactory.getCurrentSession();
+		TRoute tRoute = (TRoute) session.get(TRoute.class, k);
+		session.clear();
+		return tRoute;
+	}
+
+	@Override
+	public List<TRoute> findByProperty(String proName, Object proVal) {
+//		Session session = sessionFactory.getCurrentSession();
+//		//路线查询：根据线路编号（String），车次（String）,车站名（String）,发车时间（Date）、到站时间（Date），
+//		Query query = session.createQuery("from TRoute where "+proName+" ?");
+//		query.setParameter(0, arg1)
+		return null;
+	}
+
+	@Override
+	public List<TRoute> findByProperties(TRoute t) throws Exception {
+		//路线查询：根据线路编号（String）,车站名（String）,发车时间（Date）、到站时间（Date），
+		Session session = sessionFactory.getCurrentSession();
+		String sql = "from TRoute where 1=1";
+		String id = t.getId();
+		if (null != id) {
+			sql += " And id = " + id;
+		}
+		String site = t.getSite();
+		if (null != site) {
+			sql += " And site like" + " '%" + site + "%'";
+		}
+		Date startTime = t.getStarttime();
+		Date endTime = t.getEndtime();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		if (null != startTime && null != endTime) {
+			sql += " And starttime > to_date('" + format.format(startTime) + "','yyyy-MM-dd')";
+		}
+		if (null != endTime) {
+			sql += " And endtime < to_date('" + format.format(endTime) + "','yyyy-MM-dd')";
+		}
+		Query query = session.createQuery(sql);
+		List<TRoute> tRoutes = query.list();
+		return tRoutes;
+	}
+
+}

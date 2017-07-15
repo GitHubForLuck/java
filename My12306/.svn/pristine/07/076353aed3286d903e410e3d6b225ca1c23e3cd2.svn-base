@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-7-11 12:41:52 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.qf.dao.pojo.TTrain" table="T_TRAIN" schema="SCOTT" optimistic-lock="version">
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="20" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="TStationByEndstation" class="com.qf.dao.pojo.TStation" fetch="select">
+            <column name="ENDSTATION" length="20" not-null="true" />
+        </many-to-one>
+        <many-to-one name="TStationByStartstation" class="com.qf.dao.pojo.TStation" fetch="select">
+            <column name="STARTSTATION" length="20" not-null="true" />
+        </many-to-one>
+        <property name="starttime" type="date">
+            <column name="STARTTIME" length="7" not-null="true" />
+        </property>
+        <property name="endtime" type="date">
+            <column name="ENDTIME" length="7" not-null="true" />
+        </property>
+        <property name="mile" type="int">
+            <column name="MILE" precision="8" not-null="true" />
+        </property>
+        <property name="noseatnumber" type="int">
+            <column name="NOSEATNUMBER" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="bodytype" type="int">
+            <column name="BODYTYPE" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="type" type="int">
+            <column name="TYPE" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="con1" type="java.lang.String">
+            <column name="CON1" length="20" />
+        </property>
+        <property name="con2" type="java.lang.String">
+            <column name="CON2" length="20" />
+        </property>
+        <property name="con3" type="java.lang.String">
+            <column name="CON3" length="20" />
+        </property>
+        <property name="con4" type="java.lang.String">
+            <column name="CON4" length="20" />
+        </property>
+        <property name="con5" type="java.lang.String">
+            <column name="CON5" length="20" />
+        </property>
+        <set name="TRoutes" table="T_ROUTE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TID" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.qf.dao.pojo.TRoute" />
+        </set>
+        <set name="TTickets" table="T_TICKET" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TID" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.qf.dao.pojo.TTicket" />
+        </set>
+        <set name="TCarriages" table="T_CARRIAGE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TID" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.qf.dao.pojo.TCarriage" />
+        </set>
+    </class>
+</hibernate-mapping>

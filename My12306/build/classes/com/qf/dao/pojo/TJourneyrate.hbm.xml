@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-7-11 12:41:52 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.qf.dao.pojo.TJourneyrate" table="T_JOURNEYRATE" schema="SCOTT" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="native" />
+        </id>
+        <property name="journeyfrom" type="int">
+            <column name="JOURNEYFROM" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="journeyto" type="int">
+            <column name="JOURNEYTO" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="reducerate" type="int">
+            <column name="REDUCERATE" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="pricerate" type="int">
+            <column name="PRICERATE" precision="8" not-null="true" />
+        </property>
+        <property name="thisprice" type="int">
+            <column name="THISPRICE" precision="8" />
+        </property>
+        <property name="sumprice" type="int">
+            <column name="SUMPRICE" precision="8" />
+        </property>
+        <property name="con1" type="java.lang.String">
+            <column name="CON1" length="20" />
+        </property>
+        <property name="con2" type="java.lang.String">
+            <column name="CON2" length="20" />
+        </property>
+        <property name="con3" type="java.lang.String">
+            <column name="CON3" length="20" />
+        </property>
+        <property name="con4" type="java.lang.String">
+            <column name="CON4" length="20" />
+        </property>
+        <property name="con5" type="java.lang.String">
+            <column name="CON5" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>
