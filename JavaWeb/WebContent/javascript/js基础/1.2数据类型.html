@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>1.2数据类型</title>
+		<script>
+			document.write("JavaScript拥有动态类型:"+"<br />");
+			var x;
+			document.write("x="+x+"<br>");	//undefined
+			var x = 5;
+			document.write("x="+x+"<br>");	//5
+			var x = "John";
+			document.write("x="+x+"<br>");	//John
+			
+		</script>
+	</head>
+	<body>
+	
+	
+		<hr />
+		<h6>字符串类型：</h6>
+		<script>
+			var carname1="Volvo XC60";
+			var carname2='Volvo XC60';
+			var answer1='It\'s alright';
+			var answer2="He is called \"Johnny\"";
+			var answer3='He is called "Johnny"';
+			document.write(carname1 + "<br>")
+			document.write(carname2 + "<br>")
+			document.write(answer1 + "<br>")
+			document.write(answer2 + "<br>")
+			document.write(answer3 + "<br>")
+		</script>
+		
+		
+		<hr />
+		<h6>数字：</h6>
+		<script>
+			var x1 = 34.00;
+			var x2 = 34;
+			var y = 123e5;	// 12300000
+			var z = 123e-5;	// 0.00123
+			document.write(x1+"<br />");
+			document.writeln(x2+"<br />");
+			document.writeln(y+"<br />");
+			document.writeln(z+"<br />");
+		</script>
+		
+		
+		<hr />
+		<h6>布尔：</h6>
+		<script>
+			var x = true;
+			var y = false;
+			document.write(x+"<br />");
+			document.writeln(y+"<br />");
+		</script>
+		
+		
+		<hr />
+		<h6>数组：</h6>
+		<script>
+			//方法1：
+//			var cars = new Array("Saab","Volo",1,true);
+			//方法2：
+			var cars = new Array();
+			cars[0] = "Saab";
+			cars[1] = "Volvo";
+			cars[2] = 1;
+			cars[3] = true;
+			//方法3 （js数组在某种情况可以看作为json数组）：
+//			var cars = ["Saab","Volvo",1,true];
+			for (var i = 0; i < cars.length; i++) {
+				document.write(cars[i]+"<br />");
+			}
+		</script>
+		
+		
+		<hr />
+		<h6>对象：</h6>
+		<script>
+			// 方法1：
+//			var person = {firstname:"John",lastname:"Doe",id:5566};
+			// 方法2 （js对象在某种情况可以看作为json对象）：
+			var person = {"firstname":"John","lastname":"Doe","id":5566};
+			document.write(person.lastname+"<br />");
+			document.write(person["id"]+"<br />");
+		</script>
+		
+		
+		<hr />
+		<h6>undefined和null：</h6>
+		<script>
+			var none;
+			var no = null;
+			document.write(none+"<br />");
+			document.write(no+"<br />");
+		</script>
+		
+		
+		<hr />
+		<h6>声明变量类型：</h6>
+		<script>
+			document.write("var carname = new String;<br />");
+			document.write("var x =       new Number;<br /> ");
+			document.write("var y =       new Boolean;<br />");
+			document.write("var cars =    new Array;<br />");
+			document.write("var person =  new Object;<br />");
+		</script>
+	</body>
+</html>
