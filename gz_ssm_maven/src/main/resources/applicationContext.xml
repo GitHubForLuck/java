@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- 自动扫描指定包下的全部的标有@Component的类，并注册成bean -->
+	<context:component-scan base-package="com.java"></context:component-scan>
+
+	<!-- springJDBC 配置 -->
+	<!-- 第一步 加载jdbc.properties -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+
+	<!-- 第二步 配置c3p0数据连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc_driver}"></property>
+		<property name="jdbcUrl" value="${jdbc_url}"></property>
+		<property name="user" value="${jdbc_user}"></property>
+		<property name="password" value="${jdbc_password}"></property>
+	</bean>
+
+	<!-- 第三步 SpringJDBC -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- SpringMVC文件上传 -->
+	<!-- <bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		请求的编码格式必须和用户JSP的编码一致，以便正确读取表单中的内容。
+		<property name="defaultEncoding" value="UTF-8"></property>
+		文件上传大小上限（单位为字节）
+		<property name="maxUploadSize" value="1024000000"></property>
+		临时文件
+		<property name="uploadTempDir" value="upload/temp"></property>
+	</bean> -->
+
+	<!--
+		SpringMVC 处理静态资源 将在 SpringMVC 上下文中定义一个 DefaultServletHttpRequestHandler， 
+		它会对进入 DispatcherServlet 的 请求进行筛查，如果发现是没有经过映射的请求， 就将该请求交由 WEB 应用服务器默认的 Servlet 
+		处理，如果不是静态资源的请求， 才由 DispatcherServlet 继续处理
+	 -->
+	<mvc:default-servlet-handler />
+
+	<!-- springMVC 国际化 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<property name="basename" value="classpath:i18n"></property>
+	</bean>
+
+	<!-- SpringMVC启动注解 -->
+	<!-- 
+		自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 
+		两个bean,是spring MVC为@Controllers分发请求所必须的。
+	 -->
+	<mvc:annotation-driven/>
+	
+	
+	<!-- spring-springMVC 整合 MyBatis 注册MyBatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- mappers 配置文件映射 -->
+		<property name="mapperLocations" value="classpath:com/java/dao/*.xml"></property>
+		<!-- 别名设置 将该包内所有的类定义了别名，别名就是其类名 -->
+		<property name="typeAliasesPackage" value="com.java.bean"></property>
+	</bean>
+	<!-- 配置对应的SqlSession 不需要 -->
+	<!-- <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+	</bean> -->
+	<!-- 自动扫描，完成代码Mapper -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.java.dao"></property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 自定义bean测试bean生命周期 -->
+	<bean id="testBean" class="com.java.bean.TestBean" init-method="init" destroy-method="destory">
+		<property name="name" value="DD"></property>
+	</bean>
+
+</beans>
